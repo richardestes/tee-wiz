@@ -1,8 +1,0 @@
-extends Node
-
-signal hole_in
-signal change_state_encounter
-signal change_state_game_over
-signal change_state_collect_reward
-signal change_state_map
-signal change_state_run_complete
