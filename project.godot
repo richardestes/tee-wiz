@@ -22,8 +22,9 @@ Events="*uid://7jf0kwpu6spg"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=2560
+window/size/viewport_height=1440
+window/size/mode=2
 
 [layer_names]
 

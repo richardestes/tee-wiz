@@ -7,12 +7,11 @@ const LOFT_FACTOR := 0.7
 # How many world units of "pull" per pixel of mouse travel. ~300px drag = MAX_DRAG.
 const PIXEL_TO_WORLD := 0.1
 
-# Angular damping varies by terrain zone so rough actually punishes the roll.
-# Friction doesn't kill a rolling ball — only a sliding one — so we use angular_damp instead.
+# Friction doesn't kill a rolling ball — only a sliding one — so we damp the
+# roll with angular_damp instead.
 const BASE_ANGULAR_DAMP := 2.0
-const ROUGH_ANGULAR_DAMP := 5.0
 
-# Force-sleep thresholds — trimesh terrain jitter keeps the engine from sleeping
+# Force-sleep thresholds — collision jitter keeps the engine from sleeping
 # the ball on its own, so we put it to sleep ourselves once it's barely moving.
 const REST_LINEAR_SPEED := 1.5
 const REST_ANGULAR_SPEED := 7.0
@@ -24,7 +23,6 @@ var _rest_timer := 0.0
 var starting_position: Vector3
 @onready var aim_line: Node3D = get_node("AimLine")
 @onready var camera: Camera3D = get_node("../Camera3D")
-@export var terrain: Node3D
 
 func _ready() -> void:
 	angular_damp = BASE_ANGULAR_DAMP
@@ -41,7 +39,6 @@ func reset() -> void:
 	sleeping = true
 
 func _physics_process(delta: float) -> void:
-	update_angular_damp()
 	_try_force_sleep(delta)
 	if not is_dragging: return
 	var drag := get_drag_vector()
@@ -70,19 +67,8 @@ func compute_velocity(drag_vector: Vector3) -> Vector3:
 	var power_curve := drag_vector.length() / MAX_DRAG
 	# sqrt curve: soft response at low drag, diminishing returns at high drag
 	var power := sqrt(power_curve) * MAX_IMPULSE
-	var loft := 0.0 if is_on_green() else power * LOFT_FACTOR
+	var loft := power * LOFT_FACTOR
 	return direction * power + Vector3.UP * loft
-
-func is_on_green() -> bool:
-	if terrain == null: return false
-	return terrain.is_green(global_position.x, global_position.z)
-
-func is_on_rough() -> bool:
-	if terrain == null: return false
-	return terrain.is_rough(global_position.x, global_position.z)
-
-func update_angular_damp() -> void:
-	angular_damp = ROUGH_ANGULAR_DAMP if is_on_rough() else BASE_ANGULAR_DAMP
 
 # Screen drag → ball-relative impulse aligned to camera. Only the delta matters, not click location.
 func get_drag_vector() -> Vector3:
