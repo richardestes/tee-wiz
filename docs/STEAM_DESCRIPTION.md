@@ -1,5 +1,3 @@
-# Steam Description (draft)
-
 **Tee off. Cast spells. Survive the back nine.**
 
 Tee-Wiz is a first-person golf roguelite that hands you a club in one hand and a wizard's

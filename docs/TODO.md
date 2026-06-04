@@ -1,7 +1,5 @@
 # tee-wiz — Feature TODO
 
-Condensed feature list for the first-person rework. Grouped by system, not ordered by priority.
-
 ## Core structure
 - [ ] Single persistent scene (no split combat/map scenes)
 - [ ] Fully first-person perspective at all times
