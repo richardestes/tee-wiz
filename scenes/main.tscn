@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://b1c0cupl38fb4"]
+
+[ext_resource type="Script" uid="uid://uqm8hrxo65cs" path="res://scripts/bootstrap.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dqs02ka6cyh22" path="res://scenes/golf_world.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dyshkgniw0en" path="res://scenes/combat_world.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cofie2yb0733g" path="res://scenes/map_world.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://c4m9p1rwx7stk" path="res://scenes/player.tscn" id="5_plyrs"]
+
+[node name="Control" type="Control" unique_id=318725685]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+
+[node name="Player" parent="." unique_id=1100000001 instance=ExtResource("5_plyrs")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=651482682]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CombatContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=64386267]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/CombatContainer" unique_id=1533875953]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(1920, 249)
+render_target_update_mode = 4
+
+[node name="CombatWorld" parent="VBoxContainer/CombatContainer/SubViewport" unique_id=1676116250 instance=ExtResource("2_sugp2")]
+
+[node name="GolfContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=110937978]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/GolfContainer" unique_id=1547494211]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(1920, 573)
+render_target_update_mode = 4
+
+[node name="GolfWorld" parent="VBoxContainer/GolfContainer/SubViewport" unique_id=1234379059 instance=ExtResource("2_0xm2m")]
+
+[node name="MapContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=259718603]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/MapContainer" unique_id=1251129048]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(1920, 250)
+render_target_update_mode = 4
+
+[node name="MapWorld" parent="VBoxContainer/MapContainer/SubViewport" unique_id=677433939 instance=ExtResource("4_jyhfs")]

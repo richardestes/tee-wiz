@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cn3b53iy73q06"]
+
+[ext_resource type="Script" uid="uid://b8x7n2klq3df5" path="res://scripts/player.gd" id="1_plyr1"]
+[ext_resource type="Script" uid="uid://ddgsda7nehptx" path="res://scripts/health_component.gd" id="2_hcmp1"]
+
+[node name="Player" type="Node" unique_id=1000000001 node_paths=PackedStringArray("health")]
+script = ExtResource("1_plyr1")
+health = NodePath("HealthComponent")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1000000002]
+script = ExtResource("2_hcmp1")
