@@ -4,13 +4,20 @@
 [ext_resource type="Script" uid="uid://bpo4c35y2u61u" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://bpo528q0i4ehb" path="res://icon.svg" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://dhymye26a6nv0" path="res://scripts/look_component.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://d4righthndtw" path="res://scripts/right_hand_controller.gd" id="4_rhand"]
+[ext_resource type="PackedScene" uid="uid://c7ballscntxa" path="res://scenes/ball.tscn" id="5_ball"]
+[ext_resource type="Script" uid="uid://ctbw1mqgh2xta" path="res://scripts/arc_preview.gd" id="6_arc"]
+[ext_resource type="Resource" uid="uid://c670yxjhxnvnu" path="res://spells/fireball.tres" id="7_ur7pv"]
+[ext_resource type="Script" uid="uid://bmpbngab1ob64" path="res://scripts/mana_pool.gd" id="8_smehm"]
+[ext_resource type="PackedScene" uid="uid://ctry1ct1mh48a" path="res://scenes/spell_projectile.tscn" id="8_y4r1p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 height = 1.8
 
-[node name="Player" type="CharacterBody3D" unique_id=2021572645 node_paths=PackedStringArray("input")]
+[node name="Player" type="CharacterBody3D" unique_id=2021572645 node_paths=PackedStringArray("input", "mana_pool")]
 script = ExtResource("1_g2els")
 input = NodePath("InputComponent")
+mana_pool = NodePath("ManaPool")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=610630227]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -22,11 +29,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=931013358]
 
 [node name="Left Arm" type="Sprite3D" parent="Head/Camera3D" unique_id=820848307]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, -1.27)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, -0.5, -1.27)
 texture = ExtResource("2_dqkch")
 
 [node name="Right Arm" type="Sprite3D" parent="Head/Camera3D" unique_id=889330725]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.5, -1.27)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1, -0.5, -1.27)
 texture = ExtResource("2_dqkch")
 
 [node name="InputComponent" type="Node" parent="." unique_id=1021491812]
@@ -36,3 +43,26 @@ script = ExtResource("1_3vyb7")
 script = ExtResource("3_qhqgy")
 yaw_target = NodePath("..")
 pitch_target = NodePath("../Head")
+
+[node name="RightHandController" type="Node" parent="." unique_id=1300000001 node_paths=PackedStringArray("input", "aim_source", "muzzle", "preview", "body", "look", "mana_pool")]
+script = ExtResource("4_rhand")
+input = NodePath("../InputComponent")
+aim_source = NodePath("../Head/Camera3D")
+muzzle = NodePath("../Head/Camera3D/Right Arm")
+preview = NodePath("../ArcPreview")
+body = NodePath("..")
+ball_scene = ExtResource("5_ball")
+loft_degrees = 20.0
+turn_speed = 4.0
+look = NodePath("../LookComponent")
+mana_pool = NodePath("../ManaPool")
+active_spell = ExtResource("7_ur7pv")
+projectile_scene = ExtResource("8_y4r1p")
+
+[node name="ArcPreview" type="MeshInstance3D" parent="." unique_id=1300000002]
+script = ExtResource("6_arc")
+max_points = 600
+
+[node name="ManaPool" type="Node" parent="." unique_id=1554239859]
+script = ExtResource("8_smehm")
+metadata/_custom_type_script = "uid://bmpbngab1ob64"

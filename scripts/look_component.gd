@@ -25,7 +25,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func look(mouse_motion: Vector2) -> void:
 	yaw_target.rotate_y(-mouse_motion.x * sensitivity)
 	pitch -= mouse_motion.y * sensitivity
-	pitch = clampf(pitch, deg_to_rad(-pitch_limit_degrees), deg_to_rad(pitch_limit_degrees))
+	aim_pitch(pitch)
+	
+func aim_pitch(radians: float) -> void:
+	pitch = clampf(radians, deg_to_rad(-pitch_limit_degrees), deg_to_rad(pitch_limit_degrees))
 	pitch_target.rotation.x = pitch
 
 func capture_mouse() -> void:

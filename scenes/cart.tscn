@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://r1f3f6m3u3a2"]
+
+[ext_resource type="Script" uid="uid://dlp21e17mj7xs" path="res://scripts/cart.gd" id="1_cart"]
+[ext_resource type="Script" uid="uid://bemlpwtlv2h3i" path="res://scripts/input_component.gd" id="2_input"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4n44e"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4n44e"]
+
+[node name="Cart" type="CharacterBody3D" unique_id=1100515163 node_paths=PackedStringArray("input")]
+collision_layer = 2
+script = ExtResource("1_cart")
+input = NodePath("InputComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1868453791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_4n44e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1066583485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_4n44e")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1220741153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.4)
+
+[node name="InputComponent" type="Node" parent="." unique_id=1220741154]
+script = ExtResource("2_input")

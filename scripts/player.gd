@@ -4,6 +4,7 @@ class_name Player extends CharacterBody3D
 @export var speed: float = 5.0
 @export var jump_strength: float = 5.0
 @export var gravity: float = 20.0
+@export var mana_pool : ManaPool
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
