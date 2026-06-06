@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bj4cskdo0atcc" path="res://aseprite/mana/export/poison.png" id="9_trceg"]
 [ext_resource type="Texture2D" uid="uid://bpny20n7slcsa" path="res://aseprite/mana/export/lightning.png" id="10_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://x3tewkygfgks" path="res://aseprite/mana/export/dark.png" id="11_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://baup50fucgwwd" path="res://scenes/enemy.tscn" id="12_eb6dy"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_sgp6g"]
 size = Vector2(1000, 1000)
@@ -101,3 +102,6 @@ element_icons = Array[Texture2D]([ExtResource("7_ya4ey"), ExtResource("8_eb6dy")
 [node name="Rows" type="VBoxContainer" parent="ManaBar" unique_id=820911616]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Enemy" parent="." unique_id=257900415 instance=ExtResource("12_eb6dy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.632315, 0, -12.000019)
