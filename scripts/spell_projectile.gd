@@ -5,18 +5,18 @@ class_name SpellProjectile extends Area3D
 @export var damage: int = 25
 
 var velocity : Vector3
-	
+
+func _ready() -> void:
+	area_entered.connect(hit)
+
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
 	lifetime -= delta
 	if lifetime <= 0.0:
 		queue_free()
-	
+
 func launch(direction: Vector3) -> void:
 	velocity = direction.normalized() * speed
-
-func _ready() -> void:
-	area_entered.connect(hit)
 
 func hit(hurtbox: Area3D) -> void:
 	if hurtbox is Hurtbox:

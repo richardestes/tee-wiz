@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://db4kp2ltul6ns"]
+
+[ext_resource type="Script" uid="uid://uyvftk37de3i" path="res://scripts/spell.gd" id="1_lnq0u"]
+[ext_resource type="Texture2D" uid="uid://barios4oirul3" path="res://aseprite/mana/export/card_lightning.png" id="1_vmt8v"]
+
+[resource]
+script = ExtResource("1_lnq0u")
+name = "Lightningball"
+typed_cost = Dictionary[int, int]({
+3: 1
+})
+card_texture = ExtResource("1_vmt8v")
+metadata/_custom_type_script = "uid://uyvftk37de3i"

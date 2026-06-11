@@ -7,10 +7,11 @@ height = 0.03
 radius = 0.95
 
 [sub_resource type="TorusMesh" id="TorusMesh_qkgjv"]
-inner_radius = 1.0
-outer_radius = 0.95
+inner_radius = 1.734
+outer_radius = 2.487
 
 [node name="ManaLoop" type="Area3D" unique_id=264872146 node_paths=PackedStringArray("mesh")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 collision_mask = 4
 script = ExtResource("1_qkgjv")
 mesh = NodePath("MeshInstance3D")
