@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bwwv3msg7wjva"]
+
+[ext_resource type="Script" uid="uid://dohejtpbrawit" path="res://scripts/water_hazard.gd" id="1_8mjin"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8mjin"]
+albedo_color = Color(0.050980393, 0.30588236, 0.40392157, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8mjin"]
+material = SubResource("StandardMaterial3D_8mjin")
+top_radius = 20.0
+bottom_radius = 20.0
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8mjin"]
+height = 0.2
+radius = 19.0
+
+[node name="WaterHazard" type="Area3D" unique_id=239458866]
+collision_mask = 4
+script = ExtResource("1_8mjin")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1875761302]
+mesh = SubResource("CylinderMesh_8mjin")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1550848865]
+shape = SubResource("CylinderShape3D_8mjin")

@@ -1,21 +1,9 @@
-extends Sprite3D
+class_name Enemy extends CharacterBody3D
 
-signal died
-
-@export var stats: EnemyStats
-
-@export var health: HealthComponent
-@export var movement: MovementComponent
+@export var health : HealthComponent
 
 func _ready() -> void:
-	health.max_hp = stats.max_hp
-	health.current_hp = stats.max_hp
-	health.died.connect(handle_death)
-	add_to_group("enemies")
-
-func take_damage(amount: int) -> void:
-	health.take_damage(amount)
-
-func handle_death() -> void:
-	died.emit()
+	health.died.connect(die)
+	
+func die() -> void:
 	queue_free()

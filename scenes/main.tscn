@@ -1,68 +1,176 @@
-[gd_scene format=3 uid="uid://b1c0cupl38fb4"]
+[gd_scene format=3 uid="uid://yuxwo6uxw4c4"]
 
-[ext_resource type="Script" uid="uid://uqm8hrxo65cs" path="res://scripts/bootstrap.gd" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dqs02ka6cyh22" path="res://scenes/golf_world.tscn" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://dyshkgniw0en" path="res://scenes/combat_world.tscn" id="2_sugp2"]
-[ext_resource type="PackedScene" uid="uid://cofie2yb0733g" path="res://scenes/map_world.tscn" id="4_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://c4m9p1rwx7stk" path="res://scenes/player.tscn" id="5_plyrs"]
+[ext_resource type="PackedScene" uid="uid://choletscn00tw" path="res://scenes/hole.tscn" id="2_hole"]
+[ext_resource type="Script" uid="uid://b23sbymwdvdje" path="res://scripts/main.gd" id="4_main"]
+[ext_resource type="Script" uid="uid://bl3yk1mawc76v" path="res://scripts/mana_bar.gd" id="6_tefeu"]
+[ext_resource type="Texture2D" uid="uid://dhmne4qnhlq41" path="res://aseprite/mana/export/fire.png" id="7_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://dgtqgybg8jkbf" path="res://aseprite/mana/export/water.png" id="8_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://bj4cskdo0atcc" path="res://aseprite/mana/export/poison.png" id="9_trceg"]
+[ext_resource type="Texture2D" uid="uid://bpny20n7slcsa" path="res://aseprite/mana/export/lightning.png" id="10_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://x3tewkygfgks" path="res://aseprite/mana/export/dark.png" id="11_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://dbae5h6q5381q" path="res://scenes/mana_loop.tscn" id="13_a8y0u"]
+[ext_resource type="Script" uid="uid://dwrlt2p7u2o61" path="res://scripts/hand_ui.gd" id="13_trceg"]
+[ext_resource type="PackedScene" uid="uid://dprqrp88fk7qp" path="res://models/test_hole.glb" id="14_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://caajqbpr5r3jl" path="res://scenes/player.tscn" id="15_player"]
+[ext_resource type="PackedScene" uid="uid://r1f3f6m3u3a2" path="res://scenes/cart.tscn" id="16_cart"]
+[ext_resource type="Script" uid="uid://blx8rupi6s3j5" path="res://scripts/encounter_manager.gd" id="17_encmgr"]
 
-[node name="Control" type="Control" unique_id=318725685]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
+
+[sub_resource type="Sky" id="Sky_sgp6g"]
+sky_material = SubResource("ProceduralSkyMaterial_o5qli")
+
+[sub_resource type="Environment" id="Environment_o5qli"]
+background_mode = 2
+sky = SubResource("Sky_sgp6g")
+
+[node name="MainGame" type="Node" unique_id=1455984215]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_ig7tw")
 
-[node name="Player" parent="." unique_id=1100000001 instance=ExtResource("5_plyrs")]
+[node name="Systems" type="Node" parent="." unique_id=982219742]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=651482682]
+[node name="EncounterManager" type="Node" parent="Systems" unique_id=982219743]
+script = ExtResource("17_encmgr")
+
+[node name="World" type="Node3D" parent="." unique_id=1129090639 node_paths=PackedStringArray("spawn_point", "entity_parent", "encounter_manager", "mana_bar", "hand_ui")]
 process_mode = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.633759, 0, 0)
+script = ExtResource("4_main")
+player_scene = ExtResource("15_player")
+cart_scene = ExtResource("16_cart")
+spawn_point = NodePath("LevelRoot/PlayerSpawn")
+entity_parent = NodePath("EntityRoot")
+encounter_manager = NodePath("../Systems/EncounterManager")
+mana_bar = NodePath("../HudLayer/HudRoot/ManaBar")
+hand_ui = NodePath("../HudLayer/HudRoot/HandUI")
 
-[node name="CombatContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=64386267]
-layout_mode = 2
-size_flags_vertical = 3
-stretch = true
+[node name="LevelRoot" type="Node3D" parent="World" unique_id=1117045708]
 
-[node name="SubViewport" type="SubViewport" parent="VBoxContainer/CombatContainer" unique_id=1533875953]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(1920, 249)
-render_target_update_mode = 4
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World/LevelRoot" unique_id=484351852]
+transform = Transform3D(-1, -4.371139e-08, 7.5710346e-08, 0, 0.8660254, 0.5, -8.742278e-08, 0.5, -0.8660254, 0, 0, 0)
+shadow_enabled = true
 
-[node name="CombatWorld" parent="VBoxContainer/CombatContainer/SubViewport" unique_id=1676116250 instance=ExtResource("2_sugp2")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World/LevelRoot" unique_id=1509661553]
+environment = SubResource("Environment_o5qli")
 
-[node name="GolfContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=110937978]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.3
-stretch = true
+[node name="PlayerSpawn" type="Node3D" parent="World/LevelRoot" unique_id=2131238866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.703822, 6.2745924, 0)
 
-[node name="SubViewport" type="SubViewport" parent="VBoxContainer/GolfContainer" unique_id=1547494211]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(1920, 573)
-render_target_update_mode = 4
+[node name="Hole" parent="World/LevelRoot" unique_id=692958465 instance=ExtResource("2_hole")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.73523, 4.500071, 6.019554)
 
-[node name="GolfWorld" parent="VBoxContainer/GolfContainer/SubViewport" unique_id=1234379059 instance=ExtResource("2_0xm2m")]
+[node name="ManaLoop" parent="World/LevelRoot" unique_id=264872146 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -5.0447445, 12.010323, 3.6154585)
 
-[node name="MapContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=259718603]
-layout_mode = 2
-size_flags_vertical = 3
-stretch = true
+[node name="ManaLoop2" parent="World/LevelRoot" unique_id=1123028505 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -3.8417346, 12.010323, 3.4957218)
 
-[node name="SubViewport" type="SubViewport" parent="VBoxContainer/MapContainer" unique_id=1251129048]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(1920, 250)
-render_target_update_mode = 4
+[node name="ManaLoop3" parent="World/LevelRoot" unique_id=789917531 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -2.2585535, 12.010323, 3.3381453)
 
-[node name="MapWorld" parent="VBoxContainer/MapContainer/SubViewport" unique_id=677433939 instance=ExtResource("4_jyhfs")]
+[node name="ManaLoop4" parent="World/LevelRoot" unique_id=557586054 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -4.4703016, 12.010323, 9.386942)
+element = 1
+
+[node name="ManaLoop5" parent="World/LevelRoot" unique_id=503832381 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -3.2672918, 12.010323, 9.267204)
+element = 1
+
+[node name="ManaLoop6" parent="World/LevelRoot" unique_id=1223337798 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -1.6841109, 12.010323, 9.109629)
+element = 1
+
+[node name="ManaLoop7" parent="World/LevelRoot" unique_id=369407547 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -5.644349, 12.010323, -2.4088326)
+element = 2
+
+[node name="ManaLoop8" parent="World/LevelRoot" unique_id=740351634 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -4.4413395, 12.010323, -2.5285702)
+element = 2
+
+[node name="ManaLoop9" parent="World/LevelRoot" unique_id=304603668 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -2.8581588, 12.010323, -2.6861458)
+element = 2
+
+[node name="ManaLoop10" parent="World/LevelRoot" unique_id=306417543 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -6.220254, 12.010323, -8.195)
+element = 3
+
+[node name="ManaLoop11" parent="World/LevelRoot" unique_id=1662928532 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -5.017244, 12.010323, -8.314737)
+element = 3
+
+[node name="ManaLoop12" parent="World/LevelRoot" unique_id=1341953963 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -3.4340632, 12.010323, -8.472313)
+element = 3
+
+[node name="ManaLoop13" parent="World/LevelRoot" unique_id=801276832 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -3.871422, 12.010323, 15.403943)
+element = 4
+
+[node name="ManaLoop14" parent="World/LevelRoot" unique_id=658331079 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -2.6684122, 12.010323, 15.284206)
+element = 4
+
+[node name="ManaLoop15" parent="World/LevelRoot" unique_id=407360215 instance=ExtResource("13_a8y0u")]
+transform = Transform3D(4.349647e-08, 0.9950833, -0.09904181, 1, -4.371139e-08, 0, -4.329255e-09, -0.09904181, -0.9950833, -1.0852315, 12.010323, 15.12663)
+element = 4
+
+[node name="test_hole" parent="World/LevelRoot" unique_id=1319734205 instance=ExtResource("14_a8y0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0179062, 0)
+
+[node name="EntityRoot" type="Node3D" parent="World" unique_id=782649524]
+
+[node name="EffectsRoot" type="Node3D" parent="World" unique_id=678811753]
+
+[node name="HudLayer" type="CanvasLayer" parent="." unique_id=650671863]
+process_mode = 1
+layer = 10
+
+[node name="HudRoot" type="Control" parent="HudLayer" unique_id=583381617]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HandUI" type="CanvasLayer" parent="HudLayer/HudRoot" unique_id=1023876765]
+script = ExtResource("13_trceg")
+card_size = Vector2(60, 120)
+
+[node name="ManaBar" type="CanvasLayer" parent="HudLayer/HudRoot" unique_id=298385165]
+script = ExtResource("6_tefeu")
+element_icons = Array[Texture2D]([ExtResource("7_ya4ey"), ExtResource("8_eb6dy"), ExtResource("9_trceg"), ExtResource("10_a8y0u"), ExtResource("11_jkv2x")])
+
+[node name="Rows" type="VBoxContainer" parent="HudLayer/HudRoot/ManaBar" unique_id=820911616]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PauseLayer" type="CanvasLayer" parent="." unique_id=831814240]
+process_mode = 2
+layer = 100
+
+[node name="PauseRoot" type="Control" parent="PauseLayer" unique_id=1687779971]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=529319024]
+process_mode = 3
+layer = 150
+
+[node name="TransitionRoot" type="Control" parent="TransitionLayer" unique_id=151719596]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DebugLayer" type="CanvasLayer" parent="." unique_id=221427459]
+process_mode = 3
+layer = 200
+
+[node name="DebugRoot" type="Control" parent="DebugLayer" unique_id=1033881023]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

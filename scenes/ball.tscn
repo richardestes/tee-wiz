@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c7ballscntxa"]
+
+[ext_resource type="Script" uid="uid://b8klm2balltw" path="res://scripts/ball.gd" id="1_ball"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7s4qf"]
+metallic_specular = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ball"]
+material = SubResource("StandardMaterial3D_7s4qf")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ball"]
+radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxlvu"]
+transparency = 1
+shading_mode = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7s4qf"]
+material = SubResource("StandardMaterial3D_cxlvu")
+height = 40.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7s4qf"]
+radius = 7.0
+
+[node name="Ball" type="RigidBody3D" unique_id=1991845205 node_paths=PackedStringArray("beam")]
+collision_layer = 4
+linear_damp_mode = 1
+linear_damp = 0.2
+angular_damp = 2.0
+script = ExtResource("1_ball")
+beam = NodePath("Beam")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2142781376]
+mesh = SubResource("SphereMesh_ball")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1039779532]
+shape = SubResource("SphereShape3D_ball")
+
+[node name="Beam" type="MeshInstance3D" parent="." unique_id=784261971]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+top_level = true
+visible = false
+mesh = SubResource("CylinderMesh_7s4qf")
+
+[node name="BeamRadius" type="Area3D" parent="." unique_id=1152119842]
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BeamRadius" unique_id=1982416651]
+shape = SubResource("SphereShape3D_7s4qf")
