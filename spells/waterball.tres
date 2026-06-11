@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://qosirt7i046b"]
+
+[ext_resource type="Texture2D" uid="uid://7n6thqp88dla" path="res://aseprite/mana/export/card_water.png" id="1_0xf5i"]
+[ext_resource type="Script" uid="uid://uyvftk37de3i" path="res://scripts/spell.gd" id="1_ubhhv"]
+
+[resource]
+script = ExtResource("1_ubhhv")
+name = "Waterball"
+typed_cost = Dictionary[int, int]({
+1: 1
+})
+card_texture = ExtResource("1_0xf5i")
+metadata/_custom_type_script = "uid://uyvftk37de3i"

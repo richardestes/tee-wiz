@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://be40ytmfe2e01"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_l5yy6"]
-radius = 0.2
-height = 0.4
-
-[node name="MeshInstance3D" type="MeshInstance3D" unique_id=1445308453]
-mesh = SubResource("SphereMesh_l5yy6")

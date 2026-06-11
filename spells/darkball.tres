@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://b1seyxgycspwe"]
+
+[ext_resource type="Texture2D" uid="uid://d4e2wwcpjsboh" path="res://aseprite/mana/export/card_dark.png" id="1_imrlv"]
+[ext_resource type="Script" uid="uid://uyvftk37de3i" path="res://scripts/spell.gd" id="1_xppyc"]
+
+[resource]
+script = ExtResource("1_xppyc")
+name = "Darkball"
+typed_cost = Dictionary[int, int]({
+4: 1
+})
+card_texture = ExtResource("1_imrlv")
+metadata/_custom_type_script = "uid://uyvftk37de3i"

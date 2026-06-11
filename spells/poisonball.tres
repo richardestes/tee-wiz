@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://c1rpw05go028y"]
+
+[ext_resource type="Script" uid="uid://uyvftk37de3i" path="res://scripts/spell.gd" id="1_3yi2w"]
+[ext_resource type="Texture2D" uid="uid://cncqnydubjkea" path="res://aseprite/mana/export/card_poison.png" id="1_sxdc7"]
+
+[resource]
+script = ExtResource("1_3yi2w")
+name = "Poisonball"
+typed_cost = Dictionary[int, int]({
+2: 1
+})
+card_texture = ExtResource("1_sxdc7")
+metadata/_custom_type_script = "uid://uyvftk37de3i"
